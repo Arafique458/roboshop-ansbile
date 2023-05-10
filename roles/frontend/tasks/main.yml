@@ -5,9 +5,9 @@
 
 - name: Copy roboshop Config file
   ansible.builtin.copy:
-    src: roboshop.conf
+    src: https://github.com/Arafique458/roboshop-ansbile/blob/a9bacb546c86d20736548a83d8009fb30acb81e6/roles/frontend/file/roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
-    owner: foo
+    owner: root
 
 
 - name: Clean Old App content
