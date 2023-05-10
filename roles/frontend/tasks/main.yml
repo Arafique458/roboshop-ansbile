@@ -1,21 +1,14 @@
-
-#
-#func_print_head "Starting Nginx"
-#systemctl restart nginx &>>$log_file
-#systemctl enable nginx &>>$log_file
-#func_stat_check $?
-
-- name: Install nginx
+- name: Install Nginx
   ansible.builtin.yum:
     name: nginx
     state: installed
 
 - name: Copy roboshop Config file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
-- name: Cleaning Old Content
+- name: Clean Old App content
   ansible.builtin.file:
     path: /usr/share/nginx/html
     state: absent
@@ -25,13 +18,14 @@
     path: /usr/share/nginx/html
     state: directory
 
-- name: Download App content
+- name: Download App Content
   ansible.builtin.unarchive:
     src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
     dest: /usr/share/nginx/html
     remote_src: yes
 
-
-
-
-
+#- name: Start Nginx
+#  ansible.builtin.systemd:
+#    state: restarted
+#    name: nginx
+#    enabled: true
