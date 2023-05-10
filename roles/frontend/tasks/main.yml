@@ -7,6 +7,8 @@
   ansible.builtin.copy:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
+    owner: foo
+
 
 - name: Clean Old App content
   ansible.builtin.file:
